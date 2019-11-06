@@ -97,22 +97,6 @@
       // .data('') DOM要素にあるdata-~を取得できる
       // .change() セレクトボックスの値の変更をキャッチする関数
       // $().each() DOM要素を1つずつループ処理をする（ループ内で$(this)を使うと要素がひとつずつ取得できる）
-      $('select').change(function(){
-        var v = $(this).val()
-        if(v == 'all'){
-          $('.list li').each(function(){$(this).show()})
-        }else{
-          $('.list li').each(function(){
-            var d = $(this).data('category-type')
-            if(v == d){
-              $(this).show()
-            }else{
-              $(this).hide()
-              console.log(d)
-            }
-          })
-        }
-      })
     </script>
   </body>
 </html>
