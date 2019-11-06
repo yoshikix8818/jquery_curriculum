@@ -26,6 +26,10 @@
       // .keyup() 文字入力後に発火されるイベントです。
       // .replace(/\s+/g,'').length 改行を含まない文字数を取得します。
       // .val() input要素のvalueを取得します。
+      $('.input').keyup(function(){
+        $(this).replace(/\s+/g,'').length
+        var limit = $(this).val()
+      })
     </script>
   </body>
 </html>
