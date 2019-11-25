@@ -13,7 +13,7 @@
     <div class="wrapper">
       <form class="register">
         <div class="input-wrapper">
-          <input type="text" class="input" placeholder="Input Your Name.">
+          <input  type="text" class="input" placeholder="Input Your Name.">
           <p class="rest-count">30</p>
         </div>
         <button class="register-btn">Register</button>
@@ -26,10 +26,19 @@
       // .keyup() 文字入力後に発火されるイベントです。
       // .replace(/\s+/g,'').length 改行を含まない文字数を取得します。
       // .val() input要素のvalueを取得します。
-      $('.input').keyup(function(){
-        $(this).replace(/\s+/g,'').length
-        var limit = $(this).val()
-      })
+    $(function() {
+      $('.input').keyup(function() {
+        var textNum = $(this).val().replace(/\s+/g,'').length;
+        var textMax = 30;
+        var textLimit = (textMax) - (textNum);
+        $('.rest-count').text(textLimit);
+        if(textNum > textMax) {
+          $('.rest-count').addClass('red')
+        }else{
+          $('.rest-count').removeClass('red');
+        };
+      });
+    });
     </script>
   </body>
 </html>

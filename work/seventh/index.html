@@ -34,6 +34,34 @@
       // .data() 要素のdata属性を取得します。
       // .width() 要素の幅を取得します。
       // .length 要素の個数を取得します。
+      $(function() {
+        var imgArray = [];
+        var Pos = 0;
+        var target = 0;
+        var imgNum = $('.slider-list > li').length;
+        for(var i = 0; i < imgNum; i++) {
+          imgArray[i] = target;
+          target += $('.slider-list > li').eq(i).width();
+        }
+        $('.slider-ctrl-btn').click(function() {
+          var btnData = $(this).data('ctrl');
+          if(btnData == 'prev') {
+            var back = -1;
+            Pos = Pos + back;
+            if(Pos === -1){
+              Pos = imgNum - 1;
+            }
+            $('.slider-list').stop().animate({left: -imgArray[Pos]});
+          }else{
+            var next = 1;
+            Pos = Pos + next;
+            if(Pos === imgNum) {
+              Pos = 0;
+            }
+            $('.slider-list').stop().animate({left: -imgArray[Pos]});
+          }
+        });
+      });
     </script>
   </body>
 </html>
