@@ -52,13 +52,13 @@
           };
         });
         $('.scrollTopBtn').click(function() {
-          $('html').animate({ scrollTop: 0});
+          $('html,body').animate({ scrollTop: 0});
         });
         
         $('.menu__btn').click(function() {
           var btnData = $(this).data('scroll-place-type');
-          var titlePos = $('.title[data-scroll-place-type="'+btnData+'"]').offset().top;
-          $('html').animate({scrollTop: titlePos});
+          var titlePos = $('.title[data-scroll-place-type='+btnData+']').offset().top;
+          $('html,body').animate({scrollTop: titlePos});
         });
       });
     </script>

@@ -14,7 +14,7 @@
       <form class="register">
         <div class="input-wrapper">
           <input  type="text" class="input" placeholder="Input Your Name.">
-          <p class="rest-count">30</p>
+          <p class="rest-count" >30</p>
         </div>
         <button class="register-btn">Register</button>
       </form>
@@ -29,11 +29,11 @@
     $(function() {
       $('.input').keyup(function() {
         var textNum = $(this).val().replace(/\s+/g,'').length;
-        var textMax = 30;
-        var textLimit = (textMax) - (textNum);
+        var textMax = $('.rest-count').text();
+        var textLimit = textMax - textNum;
         $('.rest-count').text(textLimit);
         if(textNum > textMax) {
-          $('.rest-count').addClass('red')
+          $('.rest-count').addClass('red');
         }else{
           $('.rest-count').removeClass('red');
         };
