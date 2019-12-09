@@ -36,8 +36,8 @@
       // .length 要素の個数を取得します。
       $(function() {
         var imgArray = [];
-        var Pos = 0;
-        var target = 0;
+        var Pos = 0;//現在地
+        var target = 0;//画像の横幅
         var imgNum = $('.slider-list > li').length;
         for(var i = 0; i < imgNum; i++) {
           imgArray[i] = target;
@@ -45,21 +45,25 @@
         }
         $('.slider-ctrl-btn').click(function() {
           var btnData = $(this).data('ctrl');
-          if(btnData == 'prev') {
-            var back = -1;
-            Pos = Pos + back;
-            if(Pos === -1){
+          if(btnData === 'prev') {
+            // var back = -1;
+            // Pos = Pos--;
+            if(Pos === 0){
               Pos = imgNum - 1;
+            }else{
+              Pos --;
             }
-            $('.slider-list').stop().animate({left: -imgArray[Pos]});
-          }else{
-            var next = 1;
-            Pos = Pos + next;
-            if(Pos === imgNum) {
+            console.log(Pos);
+          }else if(btnData === 'next'){
+            // var next = 1;
+            // Pos = Pos++;
+            if(Pos === imgNum -1) {
               Pos = 0;
+            }else{
+              Pos++;
             }
-            $('.slider-list').stop().animate({left: -imgArray[Pos]});
           }
+          $('.slider-list').stop().animate({left: -imgArray[Pos]});
         });
       });
     </script>

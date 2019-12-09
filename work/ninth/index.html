@@ -38,10 +38,32 @@
       //
       // [テンプレート]
       // <li class="colorList__item">
-      //   <p class="colorList__title" style="background-color: ;"></p>
+        // <p class="colorList__title" style="background-color: ;"></p>
       // </li>
       //
       // このテンプレートに取得してきた中身を入れて表示します。
+      $.ajax({
+        url: './data.json',
+        type:'get',
+        dataType:'json',
+      })
+      // .done(function(data) {
+      //   $.each(data.colorsArray, function(){
+      //     // console.log($(this))
+      //     $('.colorList').append('<li class="colorList__item"><p class="colorList__title" style="background-color:'+$(this)[0].hexValue+';">'+$(this)[0].colorName+'</p></li>')
+      //     })
+      // });
+      .done(function(data) {
+        var List ='';
+        $.each(data.colorsArray, function(i, item) {
+          console.log($(this));
+          console.log(item);
+          
+          
+          List +=  '<li class="colorList__item"><p class="colorList__title" style="background-color:'+item.hexValue+';">'+item.colorName+'</p></li>'
+        })
+        $('.colorList').html(List)
+      })
     </script>
   </body>
 </html>
