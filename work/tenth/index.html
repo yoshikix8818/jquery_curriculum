@@ -114,7 +114,6 @@
                 '</div>' +
              '</li>';
           });
-          
           $('.lists').prepend(bookLists);
           if(data.hits === 0) {
             $('.lists').prepend('<p class="message">検索結果が見つかりませんでした<br>別のキーワードで検索してください</p>')
@@ -132,11 +131,6 @@
           if(data.statusText === "429") {
             $('.lists').prepend('<p class="message">"error":"too_many_requests",</br>"error_description":"number of allowed requests has been exceeded for this API. please try again soon."</p>')
           }
-          if(data.statusText === "404") {
-            $('.lists').prepend('<head><title>Error response</title></head>' + 
-            '<body><h1>Error response</h1><p>Error code 404.<p>Message: File not found.<p>' + 
-            'Error code explanation: 404 = Nothing matches the given URI.</body>'
-          )}
         }
       }
     </script>
