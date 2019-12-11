@@ -65,15 +65,14 @@
       //    </a>
       //  </div>
       // </li>
-      
+    $(function() { 
       var page = 1;
       var oldKeyword = '';
-      $('.search__btn').click(function(){
+      $('.search__btn').click(function() {
         click1();
       });
       
       function click1() {
-        var keywordNum = $('.search__text__input').val().length;
         var keyword = $('.search__text__input').val();
         if (keyword == oldKeyword) {
           page++;
@@ -93,7 +92,6 @@
             applicationId: '1019399324990976605',
             booksGenreId: '001',
           },
-
         }).done(function(data) {
           addList(data);
         }).fail(function(data) {
@@ -102,37 +100,42 @@
 
         function addList(data) {
           var bookLists = '';
-          $.each(data.Items, function(i, element) {
-           bookLists +=   '<li class="lists__item">' + 
-                '<div class="lists__item__inner">' + 
-                  '<a href="" class="lists__item__link" target="_blank">' +
-                    '<img src ="'+element.Item.largeImageUrl+'"class="lists__item__img"  alt="">' +
-                    '<p class="lists__item__detail">作品名：'+element.Item.title+'</p>' +
-                    '<p class="lists__item__detail">作者：'+element.Item.author+'</p>' +
-                    '<p class="lists__item__detail">出版社 ：'+element.Item.publisherName+'</p>' +
-                  '</a>' +
-                '</div>' +
-             '</li>';
-          });
-          $('.lists').prepend(bookLists);
-          if(data.hits === 0) {
-            $('.lists').prepend('<p class="message">検索結果が見つかりませんでした<br>別のキーワードで検索してください</p>')
+          if(0 < data.hits) {
+            $.each(data.Items, function(i, element) {
+              console.log(element)
+              bookLists +=  
+                '<li class="lists__item">' + 
+                  '<div class="lists__item__inner">' + 
+                    '<a href="" class="lists__item__link" target="'+element.Item.itemUrl+'">' +
+                      '<img src ="'+element.Item.largeImageUrl+'"class="lists__item__img"  alt="#">' +
+                      '<p class="lists__item__detail">作品名：'+element.Item.title+'</p>' +
+                      '<p class="lists__item__detail">作者：'+element.Item.author+'</p>' +
+                      '<p class="lists__item__detail">出版社 ：'+element.Item.publisherName+'</p>' +
+                    '</a>' +
+                  '</div>' +
+                '</li>';
+            });
+            $('.lists').prepend(bookLists);
+          }else if(data.hits === 0) {
+            $('.lists').prepend('<p class="message">検索結果が見つかりませんでした<br>別のキーワードで検索してください</p>');
           } 
         }
         function failSentence(data) {
-          // $('.lists').prepend('{"error": "system_error",</br>"error_description": "api logic error"}')
+          var resJSON = data.responseJSON
           $('.lists').empty();
-          console.log(data)
-          if(data.responseJSON.error_description === "keyword must be set") {
-            $('.lists').prepend('<p class="message"> "error": "wrong_parameter",</br>"error_description": "specify valid applicationId.keyword must be set."</p>')
-          }else if(keywordNum === 1) {
-            $('.lists').prepend('<p class="message">"error": "wrong_parameter",</br>"error_description": "keyword parameter is not valid.keyword length must be over 2 characters"</p>')
+          if(resJSON.error_description === "keyword must be set") {
+            $('.lists').prepend('<p class="message">リクエストを返せません。</br>キーワードを確認してください。</p>');
+          }else if(resJSON.error_description === "keyword length must be over 2 characters") {
+            $('.lists').prepend('<p class="message">検索ができません。</br>２文字以上の文字を入力して検索をしてください。</p>');
+          }else if(resJSON.error_description　=== "number of allowed requests has been exceeded for this API. please try again soon.") {
+            $('.lists').prepend('<p class="message">リクエスト数の限界来ました。</br>少し待ってからリクエストを送ってください。</p>');
+          }else if(resJSON　=== undefined) {
+            $('.lists').prepend('<p class="message">通信ができません。</br>インターネットの接続状況を確認してください。</p>');
           }
-          if(data.statusText === "429") {
-            $('.lists').prepend('<p class="message">"error":"too_many_requests",</br>"error_description":"number of allowed requests has been exceeded for this API. please try again soon."</p>')
-          }
+
         }
       }
+    });  
     </script>
   </body>
 </html>
